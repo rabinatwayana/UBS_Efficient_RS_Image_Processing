@@ -206,3 +206,13 @@ def reduce_radiometric_resolution(input_file, output_file):
 
     print(f"Original file size: {input_size_mb:.2f} MB")
     print(f"File size after reducing radiometric resolution: {output_size_mb:.2f} MB")
+
+def get_properties(file):
+    with rasterio.open(file) as src:
+        print("Total number of bands: ", src.count)
+        print("Cordinate system: ",src.crs)
+        print("Data types: ", src.dtypes)
+        width, height = src.width, src.height      # number of columns (pixels)
+        res_x,res_y = src.transform.a , src.transform.e   # pixel width in CRS units (usually meters)
+        print("Image dimensions (width, height): ",  width, height)
+        print("Pixel resolution (x, y):", res_x, res_y)
